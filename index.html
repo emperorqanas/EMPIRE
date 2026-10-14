@@ -1,66 +1,565 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080808">
-<title>EMPIRE | The World Is Yours</title>
+<title>EMPIRE | Your World. Your Empire.</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#080808;color:#fff;font-family:Arial,sans-serif}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #302510}
-.logo{font-size:28px;font-weight:900;color:#e9c66b;letter-spacing:4px}
-nav a{color:#ddd;text-decoration:none;margin-left:18px;font-size:14px}
-.hero{text-align:center;padding:95px 20px 80px;background:radial-gradient(ellipse at top,#352710 0%,#080808 70%)}
-.hero h1{font-size:clamp(42px,9vw,78px);color:#edcc79;letter-spacing:5px}
-.hero p{color:#bbb;margin:20px auto;max-width:520px;line-height:1.8}
-.btn{display:inline-block;background:#e7c36d;color:#111;padding:14px 27px;border-radius:5px;text-decoration:none;font-weight:bold;margin:12px 5px}
-.btn-outline{border:1px solid #c8a653;color:#e7c36d;background:transparent}
-section{padding:45px 7%}
-h2{color:#e7c36d;margin-bottom:25px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
-.card{background:#121212;border:1px solid #342a17;border-radius:10px;padding:25px}
-.card h3{color:#e7c36d;margin-bottom:12px}
-.card p{color:#aaa;line-height:1.7;font-size:14px}
-footer{text-align:center;padding:30px;color:#777;border-top:1px solid #302510}
-@media(max-width:600px){header{flex-direction:column;gap:18px}nav a{margin:0 7px}.hero{padding-top:70px}}
+:root {
+  --gold: #f6c453;
+  --gold-light: #ffe9a0;
+  --black: #080808;
+  --panel: #141414;
+  --muted: #aaa;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--black);
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+header {
+  min-height: 78px;
+  padding: 14px 4%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #33291a;
+  background: #0b0b0b;
+  position: relative;
+  z-index: 2;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 27px;
+  letter-spacing: 5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand svg { width: 48px; height: 43px; }
+
+nav {
+  display: flex;
+  gap: 22px;
+}
+
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover { color: var(--gold); }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search {
+  width: 200px;
+  padding: 11px 14px;
+  background: #151515;
+  border: 1px solid #444;
+  border-radius: 25px;
+  color: white;
+  min-width: 0;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px 22px;
+  border: 1px solid #555;
+  border-radius: 30px;
+  background: transparent;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-gold {
+  color: #171108;
+  background: linear-gradient(135deg, #ffe49a, #efb735);
+  border-color: var(--gold);
+  font-weight: bold;
+}
+
+.btn:hover { filter: brightness(1.12); }
+
+.hero {
+  min-height: 510px;
+  padding: 60px 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 72% 50%, #493313 0%, #19130b 24%, #080808 68%);
+}
+
+.hero-copy { position: relative; z-index: 1; }
+
+.eyebrow {
+  letter-spacing: 7px;
+  color: #eee;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 1;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 22px;
+  text-shadow: 0 4px 30px #bd841e44;
+}
+
+.hero h2 {
+  font-size: clamp(23px, 3vw, 36px);
+  line-height: 1.35;
+  font-weight: 400;
+  margin-bottom: 17px;
+}
+
+.hero p {
+  color: #bcbcbc;
+  line-height: 1.8;
+  max-width: 430px;
+  font-size: 15px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 27px;
+}
+
+.crown-stage {
+  min-height: 330px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.crown-stage::before {
+  content: "";
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  background: #f3bc3d15;
+  filter: blur(45px);
+}
+
+.big-crown {
+  width: min(100%, 430px);
+  height: auto;
+  position: relative;
+  filter: drop-shadow(0 12px 25px #000)
+          drop-shadow(0 0 18px #dca52b44);
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+section { padding: 38px 5%; }
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  font-size: 25px;
+}
+
+.section-heading a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid #29231a;
+  border-radius: 10px;
+  transition: transform .2s, border-color .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #b78b35;
+}
+
+.thumbnail {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 40%, #65491e, #17130d 60%, #080808);
+  color: var(--gold);
+  font-size: 42px;
+}
+
+.card-content { padding: 14px; }
+
+.card h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.vip {
+  background: linear-gradient(120deg, #19140a, #0b0b0b);
+  border-top: 1px solid #302513;
+  border-bottom: 1px solid #302513;
+}
+
+.vip-card {
+  padding: 28px;
+  border: 1px solid #76551e;
+  background: #12100b;
+  border-radius: 12px;
+}
+
+.price {
+  color: var(--gold);
+  font-size: 30px;
+  margin: 14px 0;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #888;
+  font-size: 13px;
+  line-height: 2;
+}
+
+footer span { color: var(--gold); }
+
+@media (max-width: 850px) {
+  header { flex-wrap: wrap; }
+  nav { order: 3; width: 100%; justify-content: center; }
+  .actions { margin-left: auto; }
+  .search { width: 150px; }
+  .hero { grid-template-columns: 1fr 0.8fr; padding: 45px 5%; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  header { gap: 14px; }
+  .brand { font-size: 22px; letter-spacing: 3px; }
+  .brand svg { width: 39px; }
+  .actions { width: 100%; }
+  .search { flex: 1; width: 100px; }
+  .actions .btn { padding: 10px 13px; font-size: 12px; }
+  nav { gap: 17px; }
+  nav a { font-size: 12px; }
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .hero p { margin: auto; }
+  .hero-buttons { justify-content: center; }
+  .crown-stage { min-height: 220px; }
+  .big-crown { width: 270px; }
+  section { padding: 30px 4%; }
+  .section-heading h2 { font-size: 21px; }
+  .card-content { padding: 10px; }
+  .card h3 { font-size: 13px; }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="logo">EMPIRE</div>
-<nav>
-<a href="#features">Features</a>
-<a href="#vip">VIP</a>
-<a href="#coin">EmpireCoin</a>
-</nav>
-</header><main>
-<div class="hero">
-<h1>YOUR WORLD.<br>YOUR EMPIRE.</h1>
-<p>A global destination for creators, businesses, premium content and digital opportunities.</p>
-<a class="btn" href="#features">EXPLORE EMPIRE</a>
-<a class="btn btn-outline" href="#vip">DISCOVER VIP</a>
-</div><section id="features">
-<h2>Explore EMPIRE</h2>
-<div class="grid">
-<div class="card"><h3>🎬 Videos</h3><p>Discover videos and exclusive premium content.</p></div>
-<div class="card"><h3>📢 Advertising</h3><p>Promote your business, products and ideas.</p></div>
-<div class="card"><h3>👑 VIP Membership</h3><p>Explore premium membership plans and benefits.</p></div>
-<div class="card"><h3>🤝 Referral</h3><p>Invite others and explore eligible rewards.</p></div>
-<div class="card"><h3>💰 Investments</h3><p>Explore financial opportunities, risks and disclosures.</p></div>
-<div class="card"><h3>🪙 EmpireCoin</h3><p>Digital token utilities and member benefits.</p></div>
-</div>
-</section><section id="vip">
-<h2>VIP Membership</h2>
-<div class="grid">
-<div class="card"><h3>VIP Monthly</h3><p>$9 / month</p><p>Premium membership benefits.</p></div>
-<div class="card"><h3>VIP Yearly</h3><p>$72 / year</p><p>Annual membership benefits.</p></div>
-</div>
-</section><section id="coin">
-<h2>EmpireCoin</h2>
-<div class="card">
-<p>EmpireCoin integration is planned. Token verification, wallet connectivity and member benefits will be introduced after technical testing.</p>
-</div>
-</section>
-</main><footer>© 2026 EMPIRE. All rights reserved.</footer>
+  <a class="brand" href="#" aria-label="EMPIRE home">
+    <svg viewBox="0 0 100 85" role="img" aria-label="Empire crown">
+      <defs>
+        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fff1ac"/>
+          <stop offset=".35" stop-color="#f4c24f"/>
+          <stop offset=".65" stop-color="#a76a12"/>
+          <stop offset="1" stop-color="#ffe7a0"/>
+        </linearGradient>
+      </defs>
+      <path d="M10 20 L30 39 L49 4 L69 39 L90 20 L81 66 L19 66 Z"
+            fill="url(#gold)" stroke="#ffe8a0" stroke-width="2"/>
+      <path d="M19 66 L81 66 L85 76 L15 76 Z"
+            fill="url(#gold)" stroke="#d59a2c" stroke-width="2"/>
+      <path d="M30 39 L49 48 L69 39 M49 4 L49 48"
+            fill="none" stroke="#fff0b1" stroke-width="2"/>
+      <circle cx="10" cy="19" r="5" fill="#ffe8a0"/>
+      <circle cx="49" cy="4" r="5" fill="#fff1ac"/>
+      <circle cx="90" cy="19" r="5" fill="#ffe8a0"/>
+    </svg>
+    EMPIRE
+  </a>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#videos">Videos</a>
+    <a href="#creators">Creators</a>
+    <a href="#vip">Premium</a>
+  </nav>
+
+  <div class="actions">
+    <input class="search" id="search" type="search"
+           placeholder="Search videos..." aria-label="Search videos">
+    <button class="btn" type="button"
+            onclick="demoNotice()">Log In</button>
+    <button class="btn btn-gold" type="button"
+            onclick="demoNotice()">Sign Up</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">WELCOME TO</div>
+      <h1>EMPIRE</h1>
+      <h2>More than just videos.<br>It's a community.</h2>
+      <p>
+        Watch, create, and be part of something bigger.
+        Free and premium content for everyone,
+        from creators around the world.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-gold" href="#videos">▶ &nbsp; Watch Now</a>
+        <button class="btn" onclick="demoNotice()">Join Empire</button>
+      </div>
+    </div>
+
+    <div class="crown-stage">
+      <svg class="big-crown" viewBox="0 0 500 390"
+           role="img" aria-label="Golden Empire crown">
+        <defs>
+          <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff4bf"/>
+            <stop offset=".18" stop-color="#d99a23"/>
+            <stop offset=".34" stop-color="#fff0a1"/>
+            <stop offset=".52" stop-color="#8b510b"/>
+            <stop offset=".72" stop-color="#ffdc72"/>
+            <stop offset="1" stop-color="#a66a13"/>
+          </linearGradient>
+          <linearGradient id="darkgold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#51330d"/>
+            <stop offset=".5" stop-color="#17110a"/>
+            <stop offset="1" stop-color="#9d6816"/>
+          </linearGradient>
+        </defs>
+
+        <ellipse cx="250" cy="335" rx="205" ry="23"
+                 fill="#000" opacity=".65"/>
+
+        <path d="M65 115 L145 183 L250 18 L355 183 L435 115
+                 L400 285 L100 285 Z"
+              fill="url(#darkgold)" stroke="url(#metal)" stroke-width="9"
+              stroke-linejoin="round"/>
+
+        <path d="M65 115 L145 183 L180 240 L100 285 Z"
+              fill="url(#metal)" opacity=".8"/>
+        <path d="M250 18 L250 280 L180 240 Z"
+              fill="url(#metal)"/>
+        <path d="M250 18 L320 240 L250 280 Z"
+              fill="#b77b1b"/>
+        <path d="M355 183 L435 115 L400 285 L320 240 Z"
+              fill="url(#metal)" opacity=".8"/>
+
+        <path d="M145 183 L205 215 L250 280 L295 215 L355 183"
+              fill="none" stroke="#ffe8a0" stroke-width="7"/>
+
+        <path d="M100 285 Q250 320 400 285 L413 315
+                 Q250 352 87 315 Z"
+              fill="url(#metal)" stroke="#f9d775" stroke-width="5"/>
+
+        <path d="M88 318 Q250 356 412 318 L402 341
+                 Q250 376 98 341 Z"
+              fill="url(#darkgold)" stroke="#e7b94c" stroke-width="5"/>
+
+        <path d="M213 240 L250 205 L287 240 L277 271 L223 271 Z"
+              fill="url(#metal)" stroke="#ffe7a0" stroke-width="3"/>
+
+        <path d="M230 246 L242 252 L250 235 L258 252 L270 246
+                 L266 263 L234 263 Z"
+              fill="#281907" stroke="#fbe19a" stroke-width="2"/>
+
+        <g fill="#fff2b2">
+          <circle cx="65" cy="115" r="7"/>
+          <circle cx="145" cy="183" r="7"/>
+          <circle cx="250" cy="18" r="8"/>
+          <circle cx="355" cy="183" r="7"/>
+          <circle cx="435" cy="115" r="7"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section id="videos">
+    <div class="section-heading">
+      <h2>Featured Videos</h2>
+      <a href="#videos">Explore →</a>
+    </div>
+
+    <div class="grid" id="videoGrid">
+      <article class="card" data-title="Freedom">
+        <div class="thumbnail">▶</div>
+        <div class="card-content">
+          <h3>Discover Your Freedom</h3>
+          <p>Featured content</p>
+        </div>
+      </article>
+
+      <article class="card" data-title="Technology">
+        <div class="thumbnail">✦</div>
+        <div class="card-content">
+          <h3>The Future of Technology</h3>
+          <p>Featured content</p>
+        </div>
+      </article>
+
+      <article class="card" data-title="Fitness">
+        <div class="thumbnail">◆</div>
+        <div class="card-content">
+          <h3>Build a Stronger You</h3>
+          <p>Featured content</p>
+        </div>
+      </article>
+
+      <article class="card" data-title="Exploration">
+        <div class="thumbnail">◇</div>
+        <div class="card-content">
+          <h3>Explore the Unknown</h3>
+          <p>Featured content</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="vip" id="vip">
+    <div class="section-heading">
+      <h2>EMPIRE Premium</h2>
+    </div>
+
+    <div class="grid">
+      <article class="vip-card">
+        <h3>VIP Monthly</h3>
+        <div class="price">$9 <small>/ month</small></div>
+        <p>Premium membership benefits.</p>
+        <br>
+        <button class="btn btn-gold" onclick="demoNotice()">
+          Explore VIP
+        </button>
+      </article>
+
+      <article class="vip-card">
+        <h3>VIP Yearly</h3>
+        <div class="price">$72 <small>/ year</small></div>
+        <p>Annual membership benefits.</p>
+        <br>
+        <button class="btn btn-gold" onclick="demoNotice()">
+          Explore VIP
+        </button>
+      </article>
+    </div>
+  </section>
+
+  <section id="creators">
+    <div class="section-heading">
+      <h2>For Creators & Businesses</h2>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="card-content">
+          <h3>📢 Advertising</h3>
+          <p>Promote your business and reach new audiences.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-content">
+          <h3>🤝 Referrals</h3>
+          <p>Invite friends and explore eligible rewards.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-content">
+          <h3>🪙 EmpireCoin</h3>
+          <p>Token integration is planned after verification.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-content">
+          <h3>💰 Opportunities</h3>
+          <p>Explore business opportunities and understand risks.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>👑 EMPIRE</span><br>
+  Your World. Your Empire.<br>
+  © 2026 EMPIRE. All rights reserved.
+</footer>
+
+<script>
+function demoNotice() {
+  alert("EMPIRE account services are coming soon.");
+}
+
+document.getElementById("search").addEventListener("input", function () {
+  const query = this.value.toLowerCase().trim();
+  document.querySelectorAll("#videoGrid .card").forEach(card => {
+    card.hidden = !card.innerText.toLowerCase().includes(query);
+  });
+});
+</script>
+
 </body>
 </html>
