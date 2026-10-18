@@ -569,14 +569,15 @@ async function empireSignUp() {
   }
 
   const { data, error } = await empireSupabase.auth.signUp({
-    email: email.trim(),
-    password: password,
-    options: {
-      data: {
-        username: username.trim()
-      }
+  email: email.trim(),
+  password: password,
+  options: {
+    emailRedirectTo: "https://emperorqanas.github.io/EMPIRE/",
+    data: {
+      username: username.trim()
     }
-  });
+  }
+});
 
   if (error) {
     alert("Registration failed: " + error.message);
