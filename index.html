@@ -351,10 +351,13 @@ footer span { color: var(--gold); }
   <div class="actions">
     <input class="search" id="search" type="search"
            placeholder="Search videos..." aria-label="Search videos">
-    <button class="btn" type="button"
-            onclick="demoNotice()">Log In</button>
-    <button class="btn btn-gold" type="button"
-            onclick="demoNotice()">Sign Up</button>
+    <button class="btn" type="button" onclick="empireLogin()">
+  Log In
+</button>
+
+<button class="btn btn-gold" type="button" onclick="empireSignUp()">
+  Sign Up
+</button>
   </div>
 </header>
 
@@ -550,8 +553,63 @@ footer span { color: var(--gold); }
 </footer>
 
 <script>
-function demoNotice() {
-  alert("EMPIRE account services are coming soon.");
+async function empireSignUp() {
+  const username = prompt("Choose a username:");
+  if (!username || !username.trim()) return;
+
+  const email = prompt("Enter your email:");
+  if (!email || !email.trim()) return;
+
+  const password = prompt("Choose a password (at least 8 characters):");
+  if (!password) return;
+
+  if (password.length < 8) {
+    alert("Your password must be at least 8 characters.");
+    return;
+  }
+
+  const { data, error } = await empireSupabase.auth.signUp({
+    email: email.trim(),
+    password: password,
+    options: {
+      data: {
+        username: username.trim()
+      }
+    }
+  });
+
+  if (error) {
+    alert("Registration failed: " + error.message);
+    return;
+  }
+
+  if (data.session) {
+    alert("Welcome to EMPIRE! Your account has been created.");
+  } else {
+    alert("Registration successful! Check your email to confirm your account.");
+  }
+}
+
+async function empireLogin() {
+  const email = prompt("Enter your email:");
+  if (!email || !email.trim()) return;
+
+  const password = prompt("Enter your password:");
+  if (!password) return;
+
+  const { data, error } = await empireSupabase.auth.signInWithPassword({
+    email: email.trim(),
+    password: password
+  });
+
+  if (error) {
+    alert("Login failed: " + error.message);
+    return;
+  }
+
+  alert("Welcome back to EMPIRE!");
+
+  location.reload();
 }
 
 document.getElementById("search").addEventListener("input", function () {
