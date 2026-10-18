@@ -561,6 +561,16 @@ document.getElementById("search").addEventListener("input", function () {
   });
 });
 </script>
+<script>
+const SUPABASE_URL = "https://dxrtezlijabapgcpcuwm.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_lq3g1ZksxZcv5rRAkAqULw_qLTux7h6";
 
+const empireSupabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("EMPIRE Supabase client initialized.");
+</script>
 </body>
 </html>
